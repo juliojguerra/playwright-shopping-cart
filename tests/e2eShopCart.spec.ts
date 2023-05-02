@@ -27,9 +27,18 @@ test("E2E Shop two items", async ({ page }) => {
 
   await cartPage.verifyProductsWereAdded(
     data.firstProductName,
+    data.firstProductPrice,
     data.secondProductName,
+    data.secondProductPrice,
     Object.keys(data.colorOptions)[1]
   );
+
+  await cartPage.checkout();
+
+  // Checkout Page
+  const checkoutPage = poManager.getCheckoutPage();
+
+  await checkoutPage.verifyCheckoutPageIsDisplayed();
 
   await page.pause();
 });
