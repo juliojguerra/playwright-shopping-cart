@@ -1,6 +1,8 @@
 {
   "firstProductName": "macbook",
+  "firstProductPrice": "$602.00",
   "secondProductName": "canon eos 5d",
+  "secondProductPrice": "$98.00",
   "colorOptions": {
     "Red": "15",
     "Blue": "16"
