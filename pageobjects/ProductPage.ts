@@ -7,6 +7,7 @@ export class ProductPage {
   addToCartButton: Locator;
   itemsDropdown: Locator;
   viewCartLink: Locator;
+  notificationAlert: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -15,6 +16,7 @@ export class ProductPage {
     this.addToCartButton = page.getByRole("button", { name: "add to cart" });
     this.itemsDropdown = page.getByRole("button", { name: "item" });
     this.viewCartLink = page.getByRole("link", { name: "view cart" });
+    this.notificationAlert = page.locator(".alert-success");
   }
 
   async verifyProductPageIsDisplayed(productName: string) {
@@ -27,20 +29,24 @@ export class ProductPage {
 
   async fillQuantity(units: string) {
     await this.qtyInput.fill("");
-    await this.qtyInput.fill(units);
+    await this.qtyInput.type(units);
+    await this.qtyInput.blur();
   }
 
   async addToCart() {
     await this.addToCartButton.click();
-    await this.page.waitForLoadState();
+    await this.page.waitForLoadState("domcontentloaded");
+    await this.addToCartButton.waitFor();
   }
 
   async verifyProductWasAddedToCart(productName: string) {
-    await expect(
-      this.page.getByText(
-        `Success: You have added ${productName} to your shopping cart!`
-      )
-    ).toBeVisible();
+    await this.notificationAlert.waitFor();
+
+    const notificationAlert = await this.page.getByText(
+      `Success: You have added ${productName} to your shopping cart!`
+    );
+
+    await expect(notificationAlert).toBeVisible();
   }
 
   async viewCart() {
