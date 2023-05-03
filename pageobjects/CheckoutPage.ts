@@ -18,6 +18,7 @@ export class CheckoutPage {
   deliveryCheckbox: Locator;
   deliveryMethodTitle: Locator;
   flatShippingRadioButton: Locator;
+  deliveryMethodButton: Locator;
   paymentMethodTitle: Locator;
   bankTransferRadioButton: Locator;
   termsAndConditions: Locator;
@@ -51,6 +52,7 @@ export class CheckoutPage {
       "Please select the preferred shipping method to use on this order."
     );
     this.flatShippingRadioButton = page.getByText("Flat Shipping Rate");
+    this.deliveryMethodButton = page.locator("#button-shipping-method");
     this.paymentMethodTitle = page.getByText(
       "Please select the preferred payment"
     );
@@ -110,7 +112,7 @@ export class CheckoutPage {
 
   async fillDeliveryMethod() {
     await this.flatShippingRadioButton.check();
-    await this.continueButton.click();
+    await this.deliveryMethodButton.click();
   }
 
   async verifyPaymentMethodIsDisplayed() {
