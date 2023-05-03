@@ -7,7 +7,6 @@ export class ProductPage {
   addToCartButton: Locator;
   itemsDropdown: Locator;
   viewCartLink: Locator;
-  notificationAlert: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -16,7 +15,6 @@ export class ProductPage {
     this.addToCartButton = page.getByRole("button", { name: "add to cart" });
     this.itemsDropdown = page.getByRole("button", { name: "item" });
     this.viewCartLink = page.getByRole("link", { name: "view cart" });
-    this.notificationAlert = page.locator(".alert-success");
   }
 
   async verifyProductPageIsDisplayed(productName: string) {
@@ -34,19 +32,36 @@ export class ProductPage {
   }
 
   async addToCart() {
-    await this.addToCartButton.click();
-    await this.page.waitForLoadState("domcontentloaded");
-    await this.addToCartButton.waitFor();
+    try {
+      const [response] = await Promise.all([
+        this.page.waitForResponse(
+          (res) =>
+            res.status() === 200 &&
+            res.url() ===
+              "http://opencart.abstracta.us/index.php?route=checkout/cart/add",
+          { timeout: 10000 } // 10 seconds timeout
+        ),
+        this.addToCartButton.click(),
+      ]);
+
+      if (!response) {
+        throw new Error("Expected response not received.");
+      }
+    } catch (error) {
+      console.error("Failed to add the product to the cart:", error);
+      throw error;
+    }
   }
 
   async verifyProductWasAddedToCart(productName: string) {
-    await this.notificationAlert.waitFor();
+    const notificationLocator = this.page.locator(".alert-success");
+    await notificationLocator.waitFor();
 
-    const notificationAlert = await this.page.getByText(
+    const notificationMessage = await this.page.getByText(
       `Success: You have added ${productName} to your shopping cart!`
     );
 
-    await expect(notificationAlert).toBeVisible();
+    await expect(notificationMessage).toBeVisible();
   }
 
   async viewCart() {
