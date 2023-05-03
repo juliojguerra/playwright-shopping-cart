@@ -39,6 +39,32 @@ test("E2E Shop two items", async ({ page }) => {
   const checkoutPage = poManager.getCheckoutPage();
 
   await checkoutPage.verifyCheckoutPageIsDisplayed();
+  await checkoutPage.continueAsGuest();
+  await checkoutPage.verifyBillingDetailsAreDisplayed();
+  await checkoutPage.fillBillingDetails(
+    data.firstName,
+    data.lastName,
+    data.email,
+    data.telephone,
+    data.address,
+    data.city,
+    data.codeInput,
+    data.country
+  );
 
-  await page.pause();
+  await checkoutPage.verifyDeliveryMethodIsDisplayed();
+  await checkoutPage.fillDeliveryMethod();
+  await checkoutPage.verifyPaymentMethodIsDisplayed();
+  await checkoutPage.fillPaymentMethod();
+  await checkoutPage.verifyConfirmOrderIsDisplayed(
+    data.firstProductName,
+    data.secondProductName,
+    data.totalCost
+  );
+  await checkoutPage.confirmOrder();
+
+  // Success Page
+  const successPage = poManager.getSuccessPage();
+
+  await successPage.verifySuccessPageIsDisplayed();
 });

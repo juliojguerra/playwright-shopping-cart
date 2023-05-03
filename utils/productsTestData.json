@@ -7,5 +7,14 @@
     "Red": "15",
     "Blue": "16"
   },
-  "secondProductQty": "1"
+  "secondProductQty": "1",
+  "totalCost": "$708.00",
+  "firstName": "Mike",
+  "lastName": "Davis",
+  "email": "random@email.com",
+  "telephone": "555-555-555",
+  "address": "Street name 123",
+  "city": "Cardiff",
+  "codeInput": "56-923",
+  "country": "United Kingdom"
 }
