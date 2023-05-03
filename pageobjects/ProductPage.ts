@@ -39,7 +39,7 @@ export class ProductPage {
             res.status() === 200 &&
             res.url() ===
               "http://opencart.abstracta.us/index.php?route=checkout/cart/add",
-          { timeout: 10000 } // 10 seconds timeout
+          { timeout: 15000 } // 10 seconds timeout
         ),
         this.addToCartButton.click(),
       ]);

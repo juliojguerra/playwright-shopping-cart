@@ -43,7 +43,7 @@ export class CheckoutPage {
     this.postCodeInput = page.getByLabel("Post Code");
     this.countryDropdown = page.getByRole("combobox", { name: "Country" });
     this.regionDropdown = page.getByRole("combobox", {
-      name: "Region / State",
+      name: "Region",
     });
     this.deliveryCheckbox = page.getByLabel(
       "My delivery and billing addresses are the same."
@@ -102,6 +102,7 @@ export class CheckoutPage {
     await this.postCodeInput.type(codeInput);
     await this.countryDropdown.selectOption(country);
     await this.regionDropdown.selectOption(city);
+    await this.regionDropdown.waitFor();
     await this.deliveryCheckbox.check();
     await this.continueButton.click();
   }
