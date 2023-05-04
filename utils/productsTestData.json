@@ -16,5 +16,9 @@
   "address": "Street name 123",
   "city": "Cardiff",
   "codeInput": "56-923",
-  "country": "United Kingdom"
+  "country": "United Kingdom",
+  "user": {
+    "email": "julio+test1@gmail.com",
+    "password": "ktg-yau5yqh!KXY7grp"
+  }
 }
