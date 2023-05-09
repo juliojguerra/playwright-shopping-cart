@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "E2E Tests using Playwright for a Shopping Cart app",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "report": "npx playwright test && npx playwright show-report",
+    "test": "npx playwright test",
+    "test:e2e": "npx playwright test --grep @e2e",
+    "debug": "npx playwright test --debug"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
