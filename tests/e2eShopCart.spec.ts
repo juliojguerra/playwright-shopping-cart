@@ -2,7 +2,7 @@ import { test } from "@playwright/test";
 import { POManager } from "../pageobjects/POManager";
 import data from "../utils/productsTestData.json";
 
-test("E2E Shop two items", async ({ page }) => {
+test("@E2E Shop two items", async ({ page }) => {
   const poManager = new POManager(page);
 
   // Dashboard Page
